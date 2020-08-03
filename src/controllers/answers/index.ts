@@ -1,4 +1,4 @@
-import Answer from '../../models/answers/answers';
+import Answer from '../../models/answers';
 import User from '../../models/users';
 import Comment from '../../models/answers/comments';
 

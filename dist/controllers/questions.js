@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const questions_1 = __importDefault(require("../models/questions"));
 const users_1 = __importDefault(require("../models/users"));
-const answers_1 = __importDefault(require("../models/answers/answers"));
+const answers_1 = __importDefault(require("../models/answers"));
 class QuestionsCtl {
     async find(ctx) {
         const { per_page = 10 } = ctx.query;

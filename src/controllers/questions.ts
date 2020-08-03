@@ -1,6 +1,6 @@
 import Question from '../models/questions';
 import User from '../models/users';
-import Answer from '../models/answers/answers';
+import Answer from '../models/answers';
 
 class QuestionsCtl {
   async find(ctx: any) {

@@ -15,4 +15,4 @@ router.patch('/:id', new auth_1.default().m, checkPeriodicalExist, update);
 router.delete('/:id', new auth_1.default().m, checkPeriodicalExist, del);
 router.post('/import', new auth_1.default().m, im);
 exports.default = router;
-//# sourceMappingURL=periodical.js.map
+//# sourceMappingURL=index.js.map

@@ -15,4 +15,4 @@ router.get('/:id', checkAnswerExist, findById);
 router.patch('/:id', new auth_1.default().m, checkAnswerExist, checkAnswerer, update);
 router.delete('/:id', new auth_1.default().m, checkAnswerExist, checkAnswerer, del);
 exports.default = router;
-//# sourceMappingURL=answers.js.map
+//# sourceMappingURL=index.js.map

@@ -1,8 +1,8 @@
 import Topic from '../models/topics';
 import User from '../models/users';
 import Question from '../models/questions';
-import Answer from '../models/answers/answers';
-import Periodical from '../models/periodical/periodical';
+import Answer from '../models/answers';
+import Periodical from '../models/periodical';
 
 class TopicCtl {
   async find(ctx: any) {

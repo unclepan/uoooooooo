@@ -1,4 +1,4 @@
-import Periodical from '../../models/periodical/periodical';
+import Periodical from '../../models/periodical';
 
 class PeriodicalCtl {
   async find(ctx: any) {

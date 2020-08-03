@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import Auth from '../../middlewares/auth';
-import Periodical from '../../controllers/periodical/periodical';
+import Periodical from '../../controllers/periodical';
 const router = new Router({ prefix: '/api/periodical'});
 
 const {

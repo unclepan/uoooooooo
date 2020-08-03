@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import Auth from '../../middlewares/auth';
-import Answers from '../../controllers/answers/answers';
+import Answers from '../../controllers/answers';
 const router = new Router({ prefix: '/api/answers/popular' });
 
 const {

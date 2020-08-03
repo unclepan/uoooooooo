@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const topics_1 = __importDefault(require("../models/topics"));
 const users_1 = __importDefault(require("../models/users"));
 const questions_1 = __importDefault(require("../models/questions"));
-const answers_1 = __importDefault(require("../models/answers/answers"));
-const periodical_1 = __importDefault(require("../models/periodical/periodical"));
+const answers_1 = __importDefault(require("../models/answers"));
+const periodical_1 = __importDefault(require("../models/periodical"));
 class TopicCtl {
     async find(ctx) {
         const { per_page = 10 } = ctx.query;

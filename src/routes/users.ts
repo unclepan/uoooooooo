@@ -3,8 +3,8 @@ import Auth from '../middlewares/auth';
 import Users from '../controllers/users';
 import Topics from '../controllers/topics';
 import Questions from '../controllers/questions';
-import Answers from '../controllers/answers/answers';
-import Periodical from '../controllers/periodical/periodical';
+import Answers from '../controllers/answers';
+import Periodical from '../controllers/periodical';
 
 const router = new Router({ prefix: '/api/users' });
 const {
@@ -61,7 +61,6 @@ const { checkPeriodicalExist } = Periodical;
 //     }
 //     await next();
 // };
-
 // 2:
 // const auth = jwt({ secret }); // 使用三方包的认证
 
