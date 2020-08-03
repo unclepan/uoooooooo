@@ -48,6 +48,7 @@ const { checkTopicExist } = Topics;
 const { checkQuestionExist } = Questions;
 const { checkAnswerExist } = Answers;
 const { checkPeriodicalExist } = Periodical;
+
 // const { secret } = require('../config');
 // 1:
 // const auth = async(ctx, next) => { // 自己编写的认证

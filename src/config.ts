@@ -1,7 +1,13 @@
-const config = {
+interface Config {
+  readonly secret: string;
+  readonly connectionStr: string;
+  readonly redis?: any;
+  readonly smtp: any;
+}
+
+const config: Config = {
   secret: 'antcp-jwt-secret',
   connectionStr: 'mongodb://uncle:Yp123456@localhost:27017/antcp?authSource=admin',
-  connectionCrawlerStr: 'mongodb://localhost:27017/crawler', // 爬虫数据库
   redis: {
     get host() {
       return '127.0.0.1';

@@ -15,9 +15,9 @@ export default class Auth {
     Auth.SUPER_ADMIN = 32; // 超级管理员
   }
   get m() {
-    return  async(ctx: any, next: any) => { // 自己编写的认证
+    return async(ctx: any, next: any) => { // 自己编写的认证
       const { authorization = '' } = ctx.request.header;
-      const token = authorization.replace('Bearer ', '');
+      const token: string = authorization.replace('Bearer ', '');
       const tm = await Token.findOne({token});
       if (tm) {
         try {
@@ -39,7 +39,7 @@ export default class Auth {
       await next();
     };
   }
-  static verifyToken(token) {
+  static verifyToken(token: string) {
     try {
       jwt.verify(token, secret);
       return true;

@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const config = {
     secret: 'antcp-jwt-secret',
     connectionStr: 'mongodb://uncle:Yp123456@localhost:27017/antcp?authSource=admin',
-    connectionCrawlerStr: 'mongodb://localhost:27017/crawler',
     redis: {
         get host() {
             return '127.0.0.1';

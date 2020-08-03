@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
 const server = app_1.default.listen(3001, () => {
-    console.log('Server is running at http://localhost:3001');
+    console.log('服务运行在 http://localhost:3001');
     console.log('Press CTRL-C to stop \n');
 });
 exports.default = server;
