@@ -2,6 +2,7 @@ import Periodical from '../../models/periodical';
 
 class PeriodicalCtl {
   async find(ctx: any) {
+    console.log(ctx.cookies.get('auth'));
     const { per_page = 10 } = ctx.query;
     const page = Math.max(ctx.query.page * 1, 1) - 1;
     const perPage = Math.max(per_page * 1, 1);

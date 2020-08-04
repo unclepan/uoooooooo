@@ -16,7 +16,19 @@ const config_1 = __importDefault(require("./config"));
 const { connectionStr } = config_1.default;
 const app = new koa_1.default();
 // 跨域
-app.use(koa2_cors_1.default());
+app.use(koa2_cors_1.default({
+    origin: function (ctx) {
+        if (ctx.url === '/test') {
+            return '*'; // 允许来自所有域名请求
+        }
+        return 'http://localhost:3000'; // 只允许http://localhost:3000这个域名的请求
+    },
+    maxAge: 5,
+    credentials: true,
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'] // 设置获取其他自定义字段
+}));
 mongoose_1.default.set('useCreateIndex', true);
 mongoose_1.default.set('useFindAndModify', false);
 mongoose_1.default.connect(connectionStr, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log('数据库连接成功'));

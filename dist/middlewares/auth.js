@@ -16,7 +16,8 @@ class Auth {
     }
     get m() {
         return async (ctx, next) => {
-            const { authorization = '' } = ctx.request.header;
+            // const { authorization = '' } = ctx.request.header;
+            const authorization = ctx.cookies.get('auth') || '';
             const token = authorization.replace('Bearer ', '');
             const tm = await token_1.default.findOne({ token });
             if (tm) {
