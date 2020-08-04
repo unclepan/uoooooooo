@@ -16,21 +16,6 @@ const { checkTopicExist } = topics_1.default;
 const { checkQuestionExist } = questions_1.default;
 const { checkAnswerExist } = answers_1.default;
 const { checkPeriodicalExist } = periodical_1.default;
-// const { secret } = require('../config');
-// 1:
-// const auth = async(ctx, next) => { // 自己编写的认证
-//     const { authorization = '' } = ctx.request.header;
-//     const token = authorization.replace('Bearer ', '');
-//     try {
-//         const user = jsonwebtoken.verify(token, secret);
-//         ctx.state.user = user; // 通常放一些用户信息
-//     } catch (err) {
-//         ctx.throw(401, err.message); // 401 未认证
-//     }
-//     await next();
-// };
-// 2:
-// const auth = jwt({ secret }); // 使用三方包的认证
 router.get('/', new auth_1.default(7).m, find);
 router.post('/', create);
 router.get('/:id', findById);
