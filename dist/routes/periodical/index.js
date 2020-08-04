@@ -8,7 +8,7 @@ const auth_1 = __importDefault(require("../../middlewares/auth"));
 const periodical_1 = __importDefault(require("../../controllers/periodical"));
 const router = new koa_router_1.default({ prefix: '/api/periodical' });
 const { find, findById, create, update, checkPeriodicalExist, delete: del, import: im } = periodical_1.default;
-router.get('/', find);
+router.get('/', new auth_1.default().m, find);
 router.post('/', new auth_1.default().m, create);
 router.get('/:id', checkPeriodicalExist, findById);
 router.patch('/:id', new auth_1.default().m, checkPeriodicalExist, update);
