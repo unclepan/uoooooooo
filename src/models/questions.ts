@@ -26,7 +26,7 @@ const questionSchema = new Schema(
       required: true,
       select: false
     },
-    topics: {
+    topics: { // 属于那些话题
       type: [
         {
           type: Schema.Types.ObjectId,

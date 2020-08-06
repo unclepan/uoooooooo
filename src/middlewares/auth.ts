@@ -16,10 +16,9 @@ export default class Auth {
   }
   get m() {
     return async(ctx: any, next: any) => { // 自己编写的认证
-      const { authorizationForHeader } = ctx.request.header; // 从header
+      const { authorization: authorizationForHeader } = ctx.request.header; // 从header
       const authorizationForCookie = ctx.cookies.get('auth'); // 从cookies
       const authorization = authorizationForCookie || authorizationForHeader || '';
-      console.log(authorization, 1234);
       const token: string = authorization.replace('Bearer ', '');
       const tm = await Token.findOne({token});
       if (tm) {
