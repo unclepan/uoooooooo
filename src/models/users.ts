@@ -30,7 +30,8 @@ const userSchema = new Schema(
       select: false // mongoose的一个语法，获取的时候不显示
     },
     avatar_url: { // 头像
-      type: String
+      type: String,
+      default: '/avatar/default.png'
     },
     gender: { // 性别
       type: String,
@@ -175,9 +176,9 @@ userSchema.pre('save', function(next) {
   const user: any = this;
   // 加盐加密，是否更改，mongoose上的方法
   if (!user.isModified('password')) return next();
-  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+  bcrypt.genSalt(SALT_WORK_FACTOR, function(err: any, salt: any) {
     if (err) return next(err);
-    bcrypt.hash(user.password, salt, function(err, hash) {
+    bcrypt.hash(user.password, salt, function(err: any, hash: any) {
       if (err) return next(err);
       user.password = hash;
       next();
@@ -186,9 +187,9 @@ userSchema.pre('save', function(next) {
 });
 
 userSchema.methods = {
-  comparePassword: (_password, password) => {
+  comparePassword: (_password: any, password: any) => {
     return new Promise((resolve, reject) => {
-      bcrypt.compare(_password, password, (err, isMatch) => {
+      bcrypt.compare(_password, password, (err: any, isMatch: any) => {
         if (!err) resolve(isMatch);
         else reject(err);
       });

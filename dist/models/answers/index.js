@@ -31,7 +31,7 @@ const answerSchema = new Schema({
         select: false
     },
     voteCount: {
-        // 投票数
+        // 赞同数
         type: Number,
         required: true,
         default: 0

@@ -32,7 +32,8 @@ const userSchema = new Schema({
         select: false // mongoose的一个语法，获取的时候不显示
     },
     avatar_url: {
-        type: String
+        type: String,
+        default: '/avatar/default.png'
     },
     gender: {
         type: String,

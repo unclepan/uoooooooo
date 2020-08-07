@@ -63,9 +63,9 @@ class AnswersCtl {
         ctx.body = await Promise.all(ctx.state.answer.map(async (item) => {
             return (async () => {
                 const commentNum = await comments_1.default.countDocuments({ answerId: item._id, rootCommentId: undefined, auditStatus: 1 });
-                const isLike = !!me.likingAnswers.find(i => i.toString() === item._id.toString());
-                const isDislike = !!me.dislikingAnswers.find(i => i.toString() === item._id.toString());
-                const isCollect = !!me.collectingAnswers.find(i => i.toString() === item._id.toString());
+                const isLike = !!me.likingAnswers.find((i) => i.toString() === item._id.toString());
+                const isDislike = !!me.dislikingAnswers.find((i) => i.toString() === item._id.toString());
+                const isCollect = !!me.collectingAnswers.find((i) => i.toString() === item._id.toString());
                 const { pic, content, answerer, questionId, voteCount } = item;
                 return {
                     id: item._id,
