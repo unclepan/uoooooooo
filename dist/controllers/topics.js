@@ -70,8 +70,16 @@ class TopicCtl {
         ctx.body = users;
     }
     async listQuestions(ctx) {
+        const { per_page = 10 } = ctx.query;
+        const page = Math.max(ctx.query.page * 1, 1) - 1;
+        const perPage = Math.max(per_page * 1, 1);
         // 话题的问题列表
-        const questions = await questions_1.default.find({ topics: ctx.params.id, auditStatus: 1 });
+        const questions = await questions_1.default.find({
+            topics: ctx.params.id,
+            auditStatus: 1
+        })
+            .limit(perPage)
+            .skip(page * perPage);
         ctx.body = await Promise.all(questions.map(async (item) => {
             return (async () => {
                 const answerNum = await answers_1.default.countDocuments({ questionId: item._id });
