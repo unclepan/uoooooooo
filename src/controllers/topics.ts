@@ -79,7 +79,7 @@ class TopicCtl {
       .skip(page * perPage);
     ctx.body = await Promise.all(questions.map(async(item: any) => {
       return (async() => {
-        const answerNum = await Answer.countDocuments({ questionId: item._id });
+        const answerNum = await Answer.countDocuments({ questionId: item._id, auditStatus: 1 });
         return {
           id: item._id,
           title: item.title,
