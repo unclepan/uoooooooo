@@ -21,8 +21,8 @@ app.use(koa2_cors_1.default({
         if (ctx.url === '/test') {
             return '*'; // 允许来自所有域名请求
         }
-        // return 'http://localhost:3000'; // 只允许域的请求
-        return 'http://www.antcp.com';
+        return 'http://localhost:3000'; // 只允许域的请求
+        // return 'http://www.antcp.com';
     },
     maxAge: 5,
     credentials: true,
