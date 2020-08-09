@@ -10,7 +10,8 @@
     "build-ts": "tsc",
     "watch": "npm run tslint && npm run watch-ts",
     "watch-ts": "tsc -w",
-    "tslint": "tslint -c tslint.json -p tsconfig.json"
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "pm2": "pm2 start pm2.config.js"
   },
   "keywords": [],
   "author": "",
