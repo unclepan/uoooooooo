@@ -16,8 +16,7 @@ const commentSchema = new Schema(
       // 评论人
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
-      select: false
+      required: true
     },
     questionId: {
       // 属于那个问题
@@ -40,7 +39,6 @@ const commentSchema = new Schema(
     },
     auditStatus: { // 审核状态
       type: Number,
-      select: false,
       default: 0
     }
   },

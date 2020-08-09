@@ -25,8 +25,7 @@ const questionSchema = new Schema({
         // 提问者
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true,
-        select: false
+        required: true
     },
     topics: {
         type: [
@@ -34,8 +33,7 @@ const questionSchema = new Schema({
                 type: Schema.Types.ObjectId,
                 ref: 'Topic'
             }
-        ],
-        select: false
+        ]
     },
     pv: {
         type: Number,
@@ -49,7 +47,6 @@ const questionSchema = new Schema({
     },
     auditStatus: {
         type: Number,
-        select: false,
         default: 0
     }
 }, { timestamps: true });

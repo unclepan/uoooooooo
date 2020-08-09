@@ -51,13 +51,11 @@ const userSchema = new Schema({
                 type: Schema.Types.ObjectId,
                 ref: 'Topic'
             }
-        ],
-        select: false
+        ]
     },
     business: {
         type: Schema.Types.ObjectId,
-        ref: 'Topic',
-        select: false
+        ref: 'Topic'
     },
     employments: {
         type: [
@@ -71,8 +69,7 @@ const userSchema = new Schema({
                     ref: 'Topic'
                 }
             }
-        ],
-        select: false
+        ]
     },
     educations: {
         type: [
@@ -96,8 +93,7 @@ const userSchema = new Schema({
                     type: Number
                 }
             }
-        ],
-        select: false
+        ]
     },
     following: {
         // 关注者列表，关注了那些人
@@ -106,8 +102,7 @@ const userSchema = new Schema({
                 type: Schema.Types.ObjectId,
                 ref: 'User'
             }
-        ],
-        select: false // 隐藏，查询的时候不显示
+        ]
     },
     followingTopics: {
         // 话题列表，关注了那些话题
@@ -116,8 +111,7 @@ const userSchema = new Schema({
                 type: Schema.Types.ObjectId,
                 ref: 'Topic'
             }
-        ],
-        select: false
+        ]
     },
     followingQuestions: {
         // 问题列表，关注了那些问题
@@ -126,8 +120,7 @@ const userSchema = new Schema({
                 type: Schema.Types.ObjectId,
                 ref: 'Question'
             }
-        ],
-        select: false
+        ]
     },
     likingAnswers: {
         // 赞过的答案
@@ -136,8 +129,7 @@ const userSchema = new Schema({
                 type: Schema.Types.ObjectId,
                 ref: 'Answer'
             }
-        ],
-        select: false
+        ]
     },
     dislikingAnswers: {
         // 踩过的答案
@@ -146,8 +138,7 @@ const userSchema = new Schema({
                 type: Schema.Types.ObjectId,
                 ref: 'Answer'
             }
-        ],
-        select: false
+        ]
     },
     collectingAnswers: {
         // 收藏的答案
@@ -156,8 +147,7 @@ const userSchema = new Schema({
                 type: Schema.Types.ObjectId,
                 ref: 'Answer'
             }
-        ],
-        select: false
+        ]
     },
     likingPeriodicals: {
         // 赞过的期刊
@@ -166,8 +156,7 @@ const userSchema = new Schema({
                 type: Schema.Types.ObjectId,
                 ref: 'Periodical'
             }
-        ],
-        select: false
+        ]
     },
 }, { timestamps: true });
 userSchema.pre('save', function (next) {

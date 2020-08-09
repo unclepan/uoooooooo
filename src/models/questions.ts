@@ -23,8 +23,7 @@ const questionSchema = new Schema(
       // 提问者
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
-      select: false
+      required: true
     },
     topics: { // 属于那些话题
       type: [
@@ -32,8 +31,7 @@ const questionSchema = new Schema(
           type: Schema.Types.ObjectId,
           ref: 'Topic'
         }
-      ],
-      select: false
+      ]
     },
     pv: {
       type: Number,
@@ -47,7 +45,6 @@ const questionSchema = new Schema(
     },
     auditStatus: { // 审核状态
       type: Number,
-      select: false,
       default: 0
     }
   },

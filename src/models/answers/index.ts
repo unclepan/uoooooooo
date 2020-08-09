@@ -19,14 +19,12 @@ const answerSchema = new Schema(
       // 回答者
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
-      select: false
+      required: true
     },
     questionId: { // 属于那一个问题
       type: Schema.Types.ObjectId,
       ref: 'Question',
-      required: true,
-      select: false
+      required: true
     },
     voteCount: {
       // 赞同数
@@ -41,7 +39,6 @@ const answerSchema = new Schema(
     },
     auditStatus: { // 审核状态
       type: Number,
-      select: false,
       default: 0
     }
   },

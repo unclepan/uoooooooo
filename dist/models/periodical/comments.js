@@ -18,8 +18,7 @@ const periodicalCommentSchema = new Schema({
         // 评论人
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true,
-        select: false
+        required: true
     },
     periodicalId: {
         // 属于那一篇期刊（为什么不用ref？，因为不用在评论里填充期刊内容）
@@ -37,7 +36,6 @@ const periodicalCommentSchema = new Schema({
     },
     auditStatus: {
         type: Number,
-        select: false,
         default: 0
     }
 }, { timestamps: true });

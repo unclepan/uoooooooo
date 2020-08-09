@@ -18,8 +18,7 @@ const feedbackSchema = new Schema(
       // 反馈的人
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
-      select: false
+      required: true
     },
   },
   { timestamps: true }

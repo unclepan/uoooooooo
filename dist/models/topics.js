@@ -21,12 +21,10 @@ const topicSchema = new Schema({
     introduction: {
         // 简介
         type: String,
-        required: true,
-        select: false
+        required: true
     },
     moreInformation: {
-        type: Array,
-        select: false
+        type: Array
     },
     popular: {
         type: Boolean,
@@ -35,7 +33,6 @@ const topicSchema = new Schema({
     },
     auditStatus: {
         type: Number,
-        select: false,
         default: 0
     }
 }, { timestamps: true });

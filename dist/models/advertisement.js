@@ -36,7 +36,6 @@ const advertisementSchema = new Schema({
     },
     auditStatus: {
         type: Number,
-        select: false,
         default: 0
     }
 }, { timestamps: true });

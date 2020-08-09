@@ -42,8 +42,7 @@ const periodicalSchema = new Schema(
           type: Schema.Types.ObjectId,
           ref: 'Topic'
         }
-      ],
-      select: false
+      ]
     },
     voteCount: {
       // 投票数
@@ -58,7 +57,6 @@ const periodicalSchema = new Schema(
     },
     auditStatus: { // 审核状态
       type: Number,
-      select: false,
       default: 0
     }
   },

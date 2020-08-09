@@ -19,12 +19,10 @@ const topicSchema = new Schema(
     introduction: {
       // 简介
       type: String,
-      required: true,
-      select: false
+      required: true
     },
     moreInformation: {
-      type: Array,
-      select: false
+      type: Array
     },
     popular: { // 是否要推荐展示
       type: Boolean,
@@ -33,7 +31,6 @@ const topicSchema = new Schema(
     },
     auditStatus: { // 审核状态
       type: Number,
-      select: false,
       default: 0
     }
   },
