@@ -15,11 +15,15 @@ const app = new Koa();
 // 跨域
 app.use(cors({
     origin: function(ctx) { // 设置允许来自指定域名请求
-        if (ctx.url === '/test') {
-            return '*'; // 允许来自所有域名请求
-        }
-        // return 'http://localhost:3000'; // 只允许域的请求
-        return 'http://www.antcp.com';
+      const whiteList = ['http://www.antcp.com', 'http://localhost:3000']; // 可跨域白名单
+      const url = ctx.header.origin.substr(0, ctx.header.referer.length - 1);
+      if (ctx.url === '/test') {
+          return '*'; // 允许来自所有域名请求
+      }
+      if (whiteList.includes(url)) {
+          return url; // 注意，这里域名末尾不能带/，否则不成功，所以在之前我把/通过substr干掉了
+      }
+      return 'http://localhost:3000';
     },
     maxAge: 5, // 指定本次预检请求的有效期，单位为秒。
     credentials: true, // 是否允许发送Cookie

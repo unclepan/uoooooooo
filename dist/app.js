@@ -18,11 +18,15 @@ const app = new koa_1.default();
 // 跨域
 app.use(koa2_cors_1.default({
     origin: function (ctx) {
+        const whiteList = ['http://www.antcp.com', 'http://localhost:3000']; // 可跨域白名单
+        const url = ctx.header.origin.substr(0, ctx.header.referer.length - 1);
         if (ctx.url === '/test') {
             return '*'; // 允许来自所有域名请求
         }
-        return 'http://localhost:3000'; // 只允许域的请求
-        // return 'http://www.antcp.com';
+        if (whiteList.includes(url)) {
+            return url; // 注意，这里域名末尾不能带/，否则不成功，所以在之前我把/通过substr干掉了
+        }
+        return 'http://localhost:3000';
     },
     maxAge: 5,
     credentials: true,
