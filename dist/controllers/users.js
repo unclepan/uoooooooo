@@ -196,7 +196,8 @@ class UsersCtl {
     async login(ctx) {
         ctx.verifyParams({
             name: { type: 'string', required: true },
-            password: { type: 'string', required: true }
+            password: { type: 'string', required: true },
+            checked: { type: 'boolean', required: true }
         });
         const user = await users_1.default.findOne({ name: ctx.request.body.name }).select('+password');
         if (!user) {
@@ -207,7 +208,7 @@ class UsersCtl {
             if (pt) {
                 const { _id, name } = user;
                 const token = jsonwebtoken_1.default.sign({ _id, name, scope: auth_1.default.USER }, secret, {
-                    expiresIn: 1000 * 60 * 30
+                    expiresIn: ctx.request.body.checked ? 1000 * 60 * 60 * 24 * 7 : 1000 * 60 * 60 * 24
                 });
                 await new token_1.default({
                     token,

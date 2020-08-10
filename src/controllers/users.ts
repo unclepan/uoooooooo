@@ -201,7 +201,8 @@ class UsersCtl {
   async login(ctx: any) {
     ctx.verifyParams({
       name: { type: 'string', required: true },
-      password: { type: 'string', required: true }
+      password: { type: 'string', required: true },
+      checked: { type: 'boolean', required: true }
     });
     const user: any = await User.findOne({ name: ctx.request.body.name }).select(
       '+password'
@@ -217,7 +218,7 @@ class UsersCtl {
       if (pt) {
         const { _id, name } = user;
         const token = jsonwebtoken.sign({ _id, name , scope: Auth.USER }, secret, {
-          expiresIn: 1000 * 60 * 30
+          expiresIn: ctx.request.body.checked ? 1000 * 60 * 60 * 24 * 7 : 1000 * 60 * 60 * 24
         });
 
         await new Token({ // 登陆成功后存入数据库
