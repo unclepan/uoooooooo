@@ -5,11 +5,8 @@ const router = new Router({
   prefix: '/api'
 });
 
-const { index, upload, bpCreate, bpFind } = Home;
+const { index, upload } = Home;
 
 router.get('/', index);
 router.post('/upload', upload);
-router.post('/bp', bpCreate);
-router.get('/bp', bpFind);
-
 export default router;

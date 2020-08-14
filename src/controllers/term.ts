@@ -54,6 +54,5 @@ class CarouselCtl {
     await Term.findByIdAndRemove(ctx.params.id);
     ctx.status = 204;
   }
-
 }
 export default new CarouselCtl();

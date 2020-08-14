@@ -8,10 +8,8 @@ const home_1 = __importDefault(require("../controllers/home"));
 const router = new koa_router_1.default({
     prefix: '/api'
 });
-const { index, upload, bpCreate, bpFind } = home_1.default;
+const { index, upload } = home_1.default;
 router.get('/', index);
 router.post('/upload', upload);
-router.post('/bp', bpCreate);
-router.get('/bp', bpFind);
 exports.default = router;
 //# sourceMappingURL=home.js.map
