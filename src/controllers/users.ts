@@ -15,7 +15,7 @@ const { secret, smtp  } = config;
 
 class UsersCtl {
   // 检查是否已经存在该用户名
-  async fundByName(ctx) {
+  async fundByName(ctx: any) {
     const { name } = ctx.query;
     const repeatedUser = await User.findOne({ name });
     ctx.body = !!repeatedUser;
@@ -80,7 +80,7 @@ class UsersCtl {
     };
   }
   // 用户列表
-  async find(ctx) {
+  async find(ctx: any) {
     const { per_page = 10 } = ctx.query;
     const page = Math.max(ctx.query.page * 1, 1) - 1;
     const perPage = Math.max(per_page * 1, 1);
@@ -93,13 +93,13 @@ class UsersCtl {
     const { fields = '' } = ctx.query;
     const selectFields = fields
       .split(';')
-      .filter((f) => f)
-      .map((f) => '+' + f)
+      .filter((f: any) => f)
+      .map((f: any) => '+' + f)
       .join(' ');
     const populateStr = fields
       .split(';')
-      .filter((f) => f)
-      .map((f) => {
+      .filter((f: any) => f)
+      .map((f: any) => {
         if (f === 'employments') {
           return 'employments.company employments.job';
         }
@@ -118,7 +118,7 @@ class UsersCtl {
     ctx.body = user;
   }
   // 创建用户
-  async create(ctx) {
+  async create(ctx: any) {
     ctx.verifyParams({
       name: { type: 'string', required: true },
       password: { type: 'string', required: true },
@@ -146,7 +146,7 @@ class UsersCtl {
     const user = await new User({ name, password, email }).save();
     ctx.body = user;
   }
-  async checkOwner(ctx, next) {
+  async checkOwner(ctx: any, next: any) {
     // 自己编写的授权，跟业务代码强相关，所以写在这里
     if (ctx.params.id !== ctx.state.user._id) {
       ctx.throw(403, '无权限');
@@ -154,7 +154,7 @@ class UsersCtl {
     await next();
   }
   // 更新用户
-  async update(ctx) {
+  async update(ctx: any) {
     ctx.verifyParams({
       name: { type: 'string', required: false },
       password: { type: 'string', required: false },
@@ -190,7 +190,7 @@ class UsersCtl {
     }
     ctx.body = user;
   }
-  async delete(ctx) {
+  async delete(ctx: any) {
     const user = await User.findByIdAndRemove(ctx.params.id);
     if (!user) {
       ctx.throw(404, '用户不存在');
@@ -251,13 +251,13 @@ class UsersCtl {
     ctx.body = user.following;
   }
 
-  async listFollowers(ctx) {
+  async listFollowers(ctx: any) {
     // 粉丝列表
     const users = await User.find({ following: ctx.params.id });
     ctx.body = users;
   }
 
-  async checkUserExist(ctx, next) {
+  async checkUserExist(ctx: any, next: any) {
     // 检查用户存在与否，跟业务代码强相关，所以写在这里
     const user = await User.findById(ctx.params.id);
     if (!user) {
@@ -267,14 +267,14 @@ class UsersCtl {
   }
   async follow(ctx: any) {
     const me: any = await User.findById(ctx.state.user._id).select('+following');
-    if (!me.following.map((id) => id.toString()).includes(ctx.params.id)) {
+    if (!me.following.map((id: any) => id.toString()).includes(ctx.params.id)) {
       me.following.push(ctx.params.id);
       me.save();
     }
     ctx.status = 204;
   }
 
-  async unfollow(ctx) {
+  async unfollow(ctx: any) {
     const me: any = await User.findById(ctx.state.user._id).select('+following');
     const index = me.following.map((id) => id.toString()).indexOf(ctx.params.id);
     if (index > -1) {
@@ -368,7 +368,7 @@ class UsersCtl {
     ctx.body = questions;
   }
 
-  async listLikingAnswers(ctx) {
+  async listLikingAnswers(ctx: any) {
     // 列出用户赞过的答案列表
     const user: any = await User.findById(ctx.params.id)
       .select('+likingAnswers')

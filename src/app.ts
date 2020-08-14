@@ -18,8 +18,21 @@ app.use(cors({
       if (ctx.url === '/test') {
           return '*'; // 允许来自所有域名请求
       }
-      return process.env.NODE_ENV === 'production' ? 'http://www.antcp.com' : 'http://localhost:3000';
-      // return 'http://www.antcp.com';
+      if (process.env.NODE_ENV === 'production') {
+        const whiteList = ['http://www.antcp.com']; // 可跨域白名单
+        let url = ctx.header.referer && ctx.header.referer.substr(0, ctx.header.referer.length - 1);
+        if (!whiteList.includes(url)) {
+          url = 'http://www.antcp.com';
+        }
+        return url;
+      } else {
+        const whiteList = ['http://localhost:3002', 'http://localhost:3000']; // 可跨域白名单
+        let url = ctx.header.referer && ctx.header.referer.substr(0, ctx.header.referer.length - 1);
+        if (!whiteList.includes(url)) {
+          url = 'http://localhost:3000';
+        }
+        return url;
+      }
     },
     maxAge: 5, // 指定本次预检请求的有效期，单位为秒。
     credentials: true, // 是否允许发送Cookie
