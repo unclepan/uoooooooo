@@ -10,7 +10,6 @@ const {
   update,
   checkPeriodicalExist,
   delete: del,
-  import: im
 } = Periodical;
 
 router.get('/', find);
@@ -22,7 +21,5 @@ router.get('/:id', checkPeriodicalExist, findById);
 router.patch('/:id', new Auth().m, checkPeriodicalExist, update);
 
 router.delete('/:id', new Auth().m, checkPeriodicalExist, del);
-
-router.post('/import', new Auth().m, im);
 
 export default router;

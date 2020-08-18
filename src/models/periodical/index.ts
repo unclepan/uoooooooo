@@ -27,7 +27,7 @@ const periodicalSchema = new Schema(
       type: String,
       required: true
     },
-    describe: {
+    describe: { // 描述
       type: String,
       required: true
     },
@@ -44,21 +44,24 @@ const periodicalSchema = new Schema(
         }
       ]
     },
-    voteCount: {
-      // 投票数
+    voteCount: { // 收藏数
       type: Number,
       required: true,
       default: 0
     },
     popular: { // 是否要推荐展示
       type: Boolean,
-      select: false,
       default: false
     },
     auditStatus: { // 审核状态
       type: Number,
       default: 0
-    }
+    },
+    del: { // 软删除
+      type: Boolean,
+      select: false,
+      default: false
+    },
   },
   { timestamps: true }
 );

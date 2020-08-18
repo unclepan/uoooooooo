@@ -6,19 +6,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const periodical_1 = __importDefault(require("../../models/periodical"));
 class PeriodicalCtl {
     async find(ctx) {
-        const { per_page = 10 } = ctx.query;
-        const page = Math.max(ctx.query.page * 1, 1) - 1;
-        const perPage = Math.max(per_page * 1, 1);
-        const q = new RegExp(ctx.query.q);
-        const { auditStatus = 1 } = ctx.query; // 审核状态
-        const { popular = false } = ctx.query; // 是否推荐
-        ctx.body = await periodical_1.default.find({
-            $or: [{ title: q }, { description: q }],
-            auditStatus,
-            popular
-        })
-            .limit(perPage)
-            .skip(page * perPage);
+        const { size = 10, current = 1, query } = ctx.query;
+        let page = Math.max(current * 1, 1) - 1;
+        const pageSize = Math.max(size * 1, 1);
+        const q = new RegExp(query);
+        const other = Object.assign({}, ctx.query);
+        delete other.size;
+        delete other.current;
+        delete other.query;
+        const conditions = Object.assign({ title: q }, other);
+        const count = await periodical_1.default.countDocuments(conditions);
+        if (count < page * pageSize) {
+            page = 0;
+        }
+        const data = await periodical_1.default.find(conditions)
+            .limit(pageSize)
+            .skip(page * pageSize)
+            .sort({ 'updatedAt': -1 });
+        ctx.body = {
+            data,
+            count,
+            current: page + 1,
+            size: pageSize
+        };
     }
     async checkPeriodicalExist(ctx, next) {
         const periodical = await periodical_1.default.findById(ctx.params.id);
@@ -75,20 +85,6 @@ class PeriodicalCtl {
     async delete(ctx) {
         await periodical_1.default.findByIdAndRemove(ctx.params.id);
         ctx.status = 204;
-    }
-    async import(ctx) {
-        const arr = ctx.request.body.map(item => {
-            return {
-                pic: `/periodical/2019112/${item.caseId}/${item.imgUrl}`,
-                title: item.title,
-                content: item.content,
-                author: item.author,
-                describe: item.describe,
-                auditStatus: 1
-            };
-        });
-        const periodicals = await periodical_1.default.insertMany(arr);
-        ctx.body = periodicals;
     }
 }
 exports.default = new PeriodicalCtl();

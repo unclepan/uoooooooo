@@ -47,20 +47,23 @@ const periodicalSchema = new Schema({
         ]
     },
     voteCount: {
-        // 投票数
         type: Number,
         required: true,
         default: 0
     },
     popular: {
         type: Boolean,
-        select: false,
         default: false
     },
     auditStatus: {
         type: Number,
         default: 0
-    }
+    },
+    del: {
+        type: Boolean,
+        select: false,
+        default: false
+    },
 }, { timestamps: true });
 exports.default = model('Periodical', periodicalSchema);
 //# sourceMappingURL=index.js.map
