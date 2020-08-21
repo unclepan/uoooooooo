@@ -2,7 +2,7 @@
 module.exports = {
 	apps: [
 		{
-			name: 'blog', // 应用名称
+			name: 'blog-node', // 应用名称
 			script: './dist/server.js', // 启动文件地址
 			cwd: './', // 当前工作路径
 			watch: [
