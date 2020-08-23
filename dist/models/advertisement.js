@@ -31,8 +31,8 @@ const advertisementSchema = new Schema({
         }
     },
     description: {
-        // 简介
-        type: String
+        type: String,
+        required: true
     },
     auditStatus: {
         type: Number,

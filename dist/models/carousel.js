@@ -30,6 +30,10 @@ const carouselSchema = new Schema({
             message: 'link格式不正确!'
         }
     },
+    description: {
+        type: String,
+        required: true
+    },
     pv: {
         type: Number,
         required: true,

@@ -27,9 +27,9 @@ const advertisementSchema = new Schema(
         message: 'link格式不正确!'
       }
     },
-    description: {
-      // 简介
-      type: String
+    description: { // 简介
+      type: String,
+      required: true
     },
     auditStatus: { // 审核状态
       type: Number,

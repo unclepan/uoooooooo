@@ -20,11 +20,15 @@ const carouselSchema = new Schema(
       type: String,
       required: true, // 验证必填
       validate: {
-        validator(v) {
+        validator(v: any) {
           return /http/.test(v);
         },
         message: 'link格式不正确!'
       }
+    },
+    description: { // 简介
+      type: String,
+      required: true
     },
     pv: {
       type: Number,

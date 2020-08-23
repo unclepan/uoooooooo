@@ -19,17 +19,17 @@ app.use(cors({
           return '*'; // 允许来自所有域名请求
       }
       if (process.env.NODE_ENV === 'production') {
-        const whiteList = ['http://www.antcp.com']; // 可跨域白名单
+        const whiteList = ['http://www.yangpan.work']; // 可跨域白名单
         let url = ctx.header.referer && ctx.header.referer.substr(0, ctx.header.referer.length - 1);
         if (!whiteList.includes(url)) {
-          url = 'http://www.antcp.com';
+          url = 'http://www.yangpan.work';
         }
         return url;
       } else {
-        const whiteList = ['http://localhost:3002', 'http://localhost:3000']; // 可跨域白名单
+        const whiteList = ['http://localhost:3002', 'http://0.0.0.0:9528']; // 可跨域白名单
         let url = ctx.header.referer && ctx.header.referer.substr(0, ctx.header.referer.length - 1);
         if (!whiteList.includes(url)) {
-          url = 'http://localhost:3000';
+          url = 'http://0.0.0.0:9528';
         }
         return url;
       }
