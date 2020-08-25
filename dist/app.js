@@ -30,10 +30,10 @@ app.use(koa2_cors_1.default({
             return url;
         }
         else {
-            const whiteList = ['http://localhost:3002', 'http://0.0.0.0:9528']; // 可跨域白名单
+            const whiteList = ['http://localhost:3002', 'http://localhost:9528']; // 可跨域白名单
             let url = ctx.header.referer && ctx.header.referer.substr(0, ctx.header.referer.length - 1);
             if (!whiteList.includes(url)) {
-                url = 'http://0.0.0.0:9528';
+                url = 'http://localhost:9528';
             }
             return url;
         }

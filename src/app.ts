@@ -26,10 +26,10 @@ app.use(cors({
         }
         return url;
       } else {
-        const whiteList = ['http://localhost:3002', 'http://0.0.0.0:9528']; // 可跨域白名单
+        const whiteList = ['http://localhost:3002', 'http://localhost:9528']; // 可跨域白名单
         let url = ctx.header.referer && ctx.header.referer.substr(0, ctx.header.referer.length - 1);
         if (!whiteList.includes(url)) {
-          url = 'http://0.0.0.0:9528';
+          url = 'http://localhost:9528';
         }
         return url;
       }
@@ -42,6 +42,7 @@ app.use(cors({
   })
 );
 
+
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 mongoose.connect(connectionStr, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log('数据库连接成功'));
@@ -50,6 +51,7 @@ mongoose.connection.on('error', console.error);
 app.use(error({ // 错误处理
   postFormat: (e: any, obj: any) => process.env.NODE_ENV === 'production' ? _.omit(obj, 'stack') : obj
 }));
+
 app.use(koaBody({
   multipart: true, // 支持 multipart-formdate 的表单，意思就是支持文件上传(文件的Content-Type就叫multipart-formdate)
   formidable: { // koa-body集成了formidable包

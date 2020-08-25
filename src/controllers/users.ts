@@ -111,7 +111,11 @@ class UsersCtl {
       .join(' ');
     const user = await User.findById(ctx.params.id)
       .select(selectFields)
-      .populate(populateStr); // select是mongoose语法
+      .populate(populateStr)
+      .populate({
+        path: 'collectingAnswers',
+        populate: { path: 'answerer questionId' }
+      }); // select是mongoose语法
     if (!user) {
       ctx.throw(404, '用户不存在');
     }
