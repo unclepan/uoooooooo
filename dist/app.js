@@ -22,10 +22,10 @@ app.use(koa2_cors_1.default({
             return '*'; // 允许来自所有域名请求
         }
         if (process.env.NODE_ENV === 'production') {
-            const whiteList = ['http://www.yangpan.work']; // 可跨域白名单
+            const whiteList = ['http://yangpan.work']; // 可跨域白名单
             let url = ctx.header.referer && ctx.header.referer.substr(0, ctx.header.referer.length - 1);
             if (!whiteList.includes(url)) {
-                url = 'http://www.yangpan.work';
+                url = 'http://yangpan.work';
             }
             return url;
         }
