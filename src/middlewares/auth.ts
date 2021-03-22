@@ -41,6 +41,24 @@ export default class Auth {
       await next();
     };
   }
+  get isLogin() {
+    return async(ctx: any, next: any) => {
+      const token: string = ctx.params.token;
+      const tm = await Token.findOne({token});
+      if (tm) {
+        try {
+          const user: any = jwt.verify(token, secret);
+          ctx.state.user = user; // 通常放一些用户信息
+          await next();
+        } catch (err) {
+          await Token.findByIdAndRemove(tm._id);
+          ctx.body = false;
+        }
+      } else {
+        ctx.body = false;
+      }
+    };
+  }
   static verifyToken(token: string) {
     try {
       jwt.verify(token, secret);

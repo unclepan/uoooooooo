@@ -140,4 +140,14 @@ router.delete('/likingPeriodical/:id', new Auth().m, checkPeriodicalExist, unLik
 // 是否赞过该期刊
 router.get('/whetherLikingPeriodical/:id', new Auth().m, checkPeriodicalExist, whetherLikePeriodical);
 
+// 是否登陆
+router.get('/is/login/:token',
+  new Auth().isLogin,
+  async(ctx, next) => {
+    ctx.params.id = ctx.state.user._id;
+    await next();
+  },
+  findById
+);
+
 export default router;

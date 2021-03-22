@@ -55,5 +55,10 @@ router.put('/likingPeriodical/:id', new auth_1.default().m, checkPeriodicalExist
 router.delete('/likingPeriodical/:id', new auth_1.default().m, checkPeriodicalExist, unLikePeriodical);
 // 是否赞过该期刊
 router.get('/whetherLikingPeriodical/:id', new auth_1.default().m, checkPeriodicalExist, whetherLikePeriodical);
+// 是否登陆
+router.get('/is/login/:token', new auth_1.default().isLogin, async (ctx, next) => {
+    ctx.params.id = ctx.state.user._id;
+    await next();
+}, findById);
 exports.default = router;
 //# sourceMappingURL=users.js.map
