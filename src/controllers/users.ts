@@ -56,8 +56,8 @@ class UsersCtl {
     const mailOptions = {
       from: `"认证邮件" <${smtp.user}>`,
       to: ko.email,
-      subject: 'ANTCP用户注册码',
-      html: `您正在ANTCP网站中注册，您的邀请码是${ko.code}`
+      subject: 'UOOOOOOOO用户注册码',
+      html: `您正在UOOOOOOOO网站中注册，您的邀请码是${ko.code}`
     };
     await transporter.sendMail(mailOptions, (error) => {
       if (error) {

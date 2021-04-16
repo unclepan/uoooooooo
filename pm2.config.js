@@ -18,7 +18,7 @@ module.exports = {
 			node_args: '--harmony', // node的启动模式
 			env: {
 				NODE_ENV: 'production', // 设置运行环境，此时process.env.NODE_ENV的值就是development
-				ORIGIN_ADDR: 'https://www.antcp.com'
+				ORIGIN_ADDR: 'https://www.uoooooooo.com'
 			},
 			env_production: {
 				NODE_ENV: 'production',

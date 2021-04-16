@@ -26,10 +26,10 @@ app.use(cors({
           return '*'; // 允许来自所有域名请求
       }
       if (process.env.NODE_ENV === 'production') {
-        const whiteList = ['http://antcp.com']; // 可跨域白名单
+        const whiteList = ['http://uoooooooo.com']; // 可跨域白名单
         let url = ctx.header.referer && ctx.header.referer.substr(0, ctx.header.referer.length - 1);
         if (!whiteList.includes(url)) {
-          url = 'http://antcp.com';
+          url = 'http://uoooooooo..com';
         }
         return url;
       } else {

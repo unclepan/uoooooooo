@@ -6,8 +6,8 @@ interface Config {
 }
 
 const config: Config = {
-  secret: 'antcp-jwt-secret',
-  connectionStr: 'mongodb://uncle:Yp123456@localhost:27017/antcp?authSource=admin',
+  secret: 'uoooooooo-jwt-secret',
+  connectionStr: 'mongodb://uncle:Yp123456@localhost:27017/uoooooooo?authSource=admin',
   redis: {
     get host() {
       return '127.0.0.1';
