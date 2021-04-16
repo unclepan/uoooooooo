@@ -31,7 +31,7 @@ app.use(koa2_cors_1.default({
             const whiteList = ['http://uoooooooo.com']; // 可跨域白名单
             let url = ctx.header.referer && ctx.header.referer.substr(0, ctx.header.referer.length - 1);
             if (!whiteList.includes(url)) {
-                url = 'http://uoooooooo.com';
+                url = 'http://uoooooooo..com';
             }
             return url;
         }

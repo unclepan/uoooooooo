@@ -27,7 +27,6 @@
     "@types/koa-static": "^4.0.1",
     "@types/koa2-cors": "^2.0.1",
     "@types/lodash": "^4.14.158",
-    "@types/mongoose": "^5.7.34",
     "@types/nodemailer": "^6.4.0",
     "@types/pako": "^1.0.1",
     "tslint": "^6.1.2",
