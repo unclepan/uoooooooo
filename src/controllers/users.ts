@@ -15,7 +15,7 @@ const { secret, smtp  } = config;
 
 class UsersCtl {
   // 检查是否已经存在该用户名
-  async fundByName(ctx: any) {
+  async whetherName(ctx: any) {
     const { name } = ctx.query;
     const repeatedUser = await User.findOne({ name });
     ctx.body = !!repeatedUser;
@@ -81,12 +81,30 @@ class UsersCtl {
   }
   // 用户列表
   async find(ctx: any) {
-    const { per_page = 10 } = ctx.query;
-    const page = Math.max(ctx.query.page * 1, 1) - 1;
-    const perPage = Math.max(per_page * 1, 1);
-    ctx.body = await User.find({ name: new RegExp(ctx.query.q) })
+    const { size = 10, current = 1, name = '', email = '' } = ctx.query;
+    let page = Math.max(current * 1, 1) - 1;
+    const perPage = Math.max(size * 1, 1);
+    const conditions = { del: false, name: new RegExp(name), email: new RegExp(email)};
+    const count = await User.countDocuments(conditions);
+
+    let data = await User.find(conditions)
       .limit(perPage)
-      .skip(page * perPage);
+      .skip(page * perPage)
+      .sort({'updatedAt': -1});
+
+    if (!data.length && page > 0) {
+      page = 0;
+      data = await User.find(conditions)
+        .limit(perPage)
+        .skip(page * perPage)
+        .sort({'updatedAt': -1});
+    }
+    ctx.body = {
+      data,
+      count,
+      current: page + 1,
+      size: perPage
+    };
   }
   // 根据某个用户id查找用户详情
   async findById(ctx) {
@@ -109,14 +127,14 @@ class UsersCtl {
         return f;
       })
       .join(' ');
-    const user = await User.findById(ctx.params.id)
-      .select(selectFields)
+    const user: any = await User.findById(ctx.params.id)
+      .select(`${selectFields} +del`)
       .populate(populateStr)
       .populate({
         path: 'collectingAnswers',
         populate: { path: 'answerer questionId' }
       }); // select是mongoose语法
-    if (!user) {
+    if (!user || user.del) {
       ctx.throw(404, '用户不存在');
     }
     ctx.body = user;
@@ -126,7 +144,8 @@ class UsersCtl {
     ctx.verifyParams({
       name: { type: 'string', required: true },
       password: { type: 'string', required: true },
-      email: { type: 'email', required: true }
+      email: { type: 'email', required: true },
+      code: { type: 'string', required: true }
     });
     const { name, password, email, code } = ctx.request.body;
 
@@ -151,6 +170,7 @@ class UsersCtl {
     ctx.body = user;
   }
   async checkOwner(ctx: any, next: any) {
+    // 当前登陆的用户与要修改的用户要一致，只能自己修改自己
     // 自己编写的授权，跟业务代码强相关，所以写在这里
     if (ctx.params.id !== ctx.state.user._id) {
       ctx.throw(403, '无权限');
@@ -206,10 +226,10 @@ class UsersCtl {
     ctx.verifyParams({
       name: { type: 'string', required: true },
       password: { type: 'string', required: true },
-      checked: { type: 'boolean', required: true }
+      checked: { type: 'boolean', required: false }
     });
     const user: any = await User.findOne({ name: ctx.request.body.name }).select(
-      '+password'
+      '+password +scope'
     );
     if (!user) {
       ctx.throw(401, '用户名不存在');
@@ -220,8 +240,8 @@ class UsersCtl {
         user.password
       );
       if (pt) {
-        const { _id, name } = user;
-        const token = jsonwebtoken.sign({ _id, name , scope: Auth.USER }, secret, {
+        const { _id, name, scope } = user;
+        const token = jsonwebtoken.sign({ _id, name , scope }, secret, {
           expiresIn: ctx.request.body.checked ? 1000 * 60 * 60 * 24 * 7 : 1000 * 60 * 60 * 24
         });
 
@@ -263,8 +283,8 @@ class UsersCtl {
 
   async checkUserExist(ctx: any, next: any) {
     // 检查用户存在与否，跟业务代码强相关，所以写在这里
-    const user = await User.findById(ctx.params.id);
-    if (!user) {
+    const user: any = await User.findById(ctx.params.id).select('+del');
+    if (!user || user.del) {
       ctx.throw(404, '用户不存在');
     }
     await next();

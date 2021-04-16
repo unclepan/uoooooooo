@@ -19,7 +19,7 @@ const config = {
             return '292222369@qq.com';
         },
         get pass() {
-            return 'jifbydmbrazcbjbe';
+            return 'dtneupirwtplbhia';
         },
         get code() {
             return () => {

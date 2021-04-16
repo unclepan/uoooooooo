@@ -5,12 +5,14 @@ import Topics from '../controllers/topics';
 import Questions from '../controllers/questions';
 import Answers from '../controllers/answers';
 import Periodical from '../controllers/periodical';
+import Filter from '../middlewares/filter';
 
-const router = new Router({ prefix: '/api/users' });
+const { parameter, softDelete } = Filter;
+const router = new Router({ prefix: '/api/users'});
 const {
   find,
   findById,
-  fundByName,
+  whetherName,
   verify,
   create,
   update,
@@ -49,14 +51,17 @@ const { checkQuestionExist } = Questions;
 const { checkAnswerExist } = Answers;
 const { checkPeriodicalExist } = Periodical;
 
-router.get('/', new Auth(7).m, find);
-
-router.post('/', create);
-
+// 用户列表
+router.get('/', find);
+// 创建用户
+router.post('/', parameter, create);
+// 修改用户
+router.patch('/:id', new Auth().m, checkOwner, checkUserExist, parameter, update);
+// 根据ID获取某一个用户
 router.get('/:id', findById);
-
-router.get('/fund/name', fundByName);
-
+// 检查是否已经存在该用户名
+router.get('/whether/name', whetherName);
+// 当前登陆的用户信息
 router.get('/login/info',
   new Auth().m,
   async(ctx, next) => {
@@ -66,8 +71,6 @@ router.get('/login/info',
   findById
 );
 
-router.patch('/:id', new Auth().m, checkOwner, update);
-
 router.delete('/:id', new Auth().m, checkOwner, del);
 
 router.post('/verify', verify);
@@ -75,13 +78,13 @@ router.post('/verify', verify);
 router.post('/login', login);
 
 router.post('/logout', logout);
-
+// 用户关注了那些人
 router.get('/:id/following', listFollowing);
-
+// 粉丝列表
 router.get('/:id/followins', listFollowers);
-
+// 关注某个人
 router.put('/following/:id', new Auth().m, checkUserExist, follow);
-
+// 取消关注某个人
 router.delete('/following/:id', new Auth().m, checkUserExist, unfollow);
 
 router.get('/:id/followingTopics', listFollowingTopic);

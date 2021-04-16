@@ -6,12 +6,19 @@ import error from 'koa-json-error';
 import parameter from 'koa-parameter';
 import mongoose from 'mongoose';
 import path from 'path';
-
+import logger from 'koa-logger';
+// import koaStatic from 'koa-static';
 import routing from './routes/index';
 import config from  './config';
 const { connectionStr } = config;
 
 const app = new Koa();
+
+mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
+mongoose.connect(connectionStr, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log('数据库连接成功'));
+mongoose.connection.on('error', console.error);
+
 // 跨域
 app.use(cors({
     origin: function(ctx) { // 设置允许来自指定域名请求
@@ -42,11 +49,20 @@ app.use(cors({
   })
 );
 
+// logger
+app.use(async (ctx, next) => {
+  const start: any = new Date();
+  await next();
+  const ms = (new Date() as any) - start;
+  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+});
 
-mongoose.set('useCreateIndex', true);
-mongoose.set('useFindAndModify', false);
-mongoose.connect(connectionStr, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log('数据库连接成功'));
-mongoose.connection.on('error', console.error);
+// 输出请求日志的功能
+app.use(logger());
+
+// 静态文件服务
+// app.use(koaStatic(__dirname + '/public'));
+// app.use(koaStatic(__dirname + '/uploads'));
 
 app.use(error({ // 错误处理
   postFormat: (e: any, obj: any) => process.env.NODE_ENV === 'production' ? _.omit(obj, 'stack') : obj
@@ -65,6 +81,13 @@ app.use(koaBody({
 
 // 参数校验
 app.use(parameter(app));
+
+// 路由
 routing(app);
+
+// 错误捕获
+app.on('error', (err, ctx) => {
+  console.error('server error', err, ctx);
+});
 
 export default app;

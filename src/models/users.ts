@@ -39,9 +39,25 @@ const userSchema = new Schema(
       default: 'male',
       required: true
     },
+    birth: { // 生日
+      type: Date,
+    },
     introduce: { // 简介
       type: String,
       default: '暂无简介',
+    },
+    scope: { // 用户权限范围
+      type: Number,
+      select: false,
+      default: 8
+      // 8: 普通用户
+      // 16: 管理员
+      // 32: 超级管理员
+    },
+    del: { // 软删除
+      type: Boolean,
+      default: false,
+      select: false
     },
     locations: { // 住址
       type: [
