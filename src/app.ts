@@ -22,19 +22,20 @@ mongoose.connection.on('error', console.error);
 // 跨域
 app.use(cors({
     origin: function(ctx) { // 设置允许来自指定域名请求
+      const host = ctx.header.host;
       if (ctx.url === '/test') {
           return '*'; // 允许来自所有域名请求
       }
       if (process.env.NODE_ENV === 'production') {
         const whiteList = ['http://uoooooooo.com', 'http://www.uoooooooo.com']; // 可跨域白名单
-        let url = ctx.header.referer && ctx.header.referer.substr(0, ctx.header.referer.length - 1);
+        let url = host && host.substr(0, host.length - 1);
         if (!whiteList.includes(url)) {
           url = 'http://uoooooooo.com';
         }
         return url;
       } else {
         const whiteList = ['http://localhost:3002', 'http://localhost:9528']; // 可跨域白名单
-        let url = ctx.header.referer && ctx.header.referer.substr(0, ctx.header.referer.length - 1);
+        let url = host && host.substr(0, host.length - 1);
         if (!whiteList.includes(url)) {
           url = 'http://localhost:9528';
         }
