@@ -22,7 +22,7 @@ mongoose.connection.on('error', console.error);
 // 跨域
 app.use(cors({
     origin: function(ctx) { // 设置允许来自指定域名请求
-      const host = ctx.header.host;
+      const host = ctx.header.referer;
       if (ctx.url === '/test') {
           return '*'; // 允许来自所有域名请求
       }
