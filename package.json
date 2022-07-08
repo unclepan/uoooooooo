@@ -47,7 +47,7 @@
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
     "lodash": "^4.17.19",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.9.26",
     "nodemailer": "^6.4.11",
     "pako": "^1.0.11"
